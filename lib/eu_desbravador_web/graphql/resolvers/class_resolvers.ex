@@ -1,8 +1,8 @@
-defmodule Eudesbravador.Resolvers.Class do
+defmodule EuDesbravador.Resolvers.Class do
   alias EuDesbravador.Repo
   alias EuDesbravador.Models.Class
 
-  def get(_parent, %{id: id}, _resolution, %{context: %{current_user: _current_user}}) do
+  def get(%{id: id}, %{context: %{current_user: _current_user}}) do
     case Repo.get(Class, id) do
       nil ->
         {:error, "Class ID #{id} not found"}
@@ -12,11 +12,25 @@ defmodule Eudesbravador.Resolvers.Class do
     end
   end
 
+  def get(%{id: id}, _info) do
+    {:error, "Not Authorized"}
+  end
+
   def all(_args, %{context: %{current_user: _current_user}}) do
     {:ok, Repo.all(Class)}
   end
 
   def all(_args, _info) do
+    {:error, "Not Authorized"}
+  end
+
+  def insert(args, %{context: %{current_user: _current_user}}) do
+    %Class{}
+    |> Class.changeset(args)
+    |> Repo.insert()
+  end
+
+  def insert(args, _info) do
     {:error, "Not Authorized"}
   end
 

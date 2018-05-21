@@ -2,7 +2,7 @@ defmodule EuDesbravador.Resolvers.User do
   alias EuDesbravador.Repo
   alias EuDesbravador.Models.User
 
-  def get(_parent, %{id: id}, _resolution, %{context: %{current_user: _current_user}}) do
+  def get(%{id: id}, %{context: %{current_user: _current_user}}) do
     case Repo.get(User, id) do
       nil ->
         {:error, "User ID #{id} not found"}
@@ -10,6 +10,10 @@ defmodule EuDesbravador.Resolvers.User do
       user ->
         {:ok, user}
     end
+  end
+
+  def get(%{id: id}, _info) do
+    {:error, "Not Authorized"}
   end
 
   def all(_args, %{context: %{current_user: _current_user}}) do
@@ -20,10 +24,14 @@ defmodule EuDesbravador.Resolvers.User do
     {:error, "Not Authorized"}
   end
 
-  def insert(_params, args, _resolution, %{context: %{current_user: _current_user}}) do
+  def insert(args, %{context: %{current_user: _current_user}}) do
     %User{}
     |> User.changeset(args)
     |> Repo.insert()
+  end
+
+  def insert(args, _info) do
+    {:error, "Not Authorized"}
   end
 
   def store_token(%User{} = user, token) do

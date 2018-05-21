@@ -19,12 +19,14 @@ defmodule EuDesbravador.Models.User do
     |> cast(attrs, [
       :email,
       :name,
-      :password
+      :password,
+      :active,
     ])
     |> validate_required([
       :email,
       :name,
-      :password
+      :password,
+      :active,
     ])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)

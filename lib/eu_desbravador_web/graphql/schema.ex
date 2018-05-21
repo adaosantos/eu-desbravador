@@ -17,12 +17,23 @@ defmodule EuDesbravador.Schema do
     @desc "Get user"
     field :user, :user do
       arg(:id, non_null(:id))
-      resolve(&Resolvers.User.get/3)
+      resolve(&Resolvers.User.get/2)
     end
 
     @desc "Get all users"
     field :users, list_of(:user) do
       resolve(&Resolvers.User.all/2)
+    end
+
+    @desc "Get Class"
+    field :class, :class do
+      arg(:id, non_null(:id))
+      resolve(&Resolvers.Class.get/2)
+    end
+
+    @desc "Get all classess"
+    field :classes, list_of(:class) do
+      resolve(&Resolvers.Class.all/2)
     end
   end
 
@@ -35,7 +46,7 @@ defmodule EuDesbravador.Schema do
       arg(:name, non_null(:string))
       arg(:password, non_null(:string))
 
-      resolve(&Resolvers.User.insert/3)
+      resolve(&Resolvers.User.insert/2)
     end
 
     @desc "Sign Out"
@@ -53,6 +64,8 @@ defmodule EuDesbravador.Schema do
       arg(:slug, non_null(:string))
       arg(:advanced, non_null(:boolean))
       arg(:badge, non_null(:string))
+
+      resolve(&Resolvers.Class.insert/2)
     end
   end
 end

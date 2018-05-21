@@ -13,4 +13,23 @@ defmodule EuDesbravador.Models.Class do
     timestamps()
   end
 
+  @doc false
+  def changeset(%Class{} = class, attrs) do
+    class
+    |> cast(attrs, [
+      :name,
+      :slug,
+      :badge,
+      :advanced,
+      :active
+    ])
+    |> validate_required([
+      :name,
+      :slug,
+      :badge,
+      :advanced,
+      :active
+    ])
+  end
+
 end

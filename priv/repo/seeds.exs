@@ -12,11 +12,5 @@
 alias EuDesbravador.Repo
 alias EuDesbravador.Models.User
 
-1..10
-|> Enum.each(fn _ ->
-  Repo.insert!(%User{
-    name: Faker.Name.first_name(),
-    email: Faker.Internet.free_email(),
-    password: Faker.String.base64()
-  })
-end)
+
+Repo.insert!(User.changeset(%User{}, %{name: "Administrator", email: "admin@admin.com", password: "1234", active: true }))
