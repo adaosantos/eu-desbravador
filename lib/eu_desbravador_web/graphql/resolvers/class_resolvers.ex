@@ -34,4 +34,15 @@ defmodule EuDesbravador.Resolvers.Class do
     {:error, "Not Authorized"}
   end
 
+  def update(%{id: id, class: class_params}, %{context: %{current_user: _current_user}} = info) do
+    case get(%{id: id}, info) do
+      {:ok, class} -> class |> Class.changeset(class_params) |> Repo.update()
+      {:error, _} -> {:error, "Class id #{id} not found"}
+    end
+  end
+
+  def update(args, _info) do
+    { :error, "Not Authorized"}
+  end
+
 end

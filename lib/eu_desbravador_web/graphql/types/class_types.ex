@@ -10,4 +10,12 @@ defmodule EuDesbravador.Types.Class do
     field(:badge, :string)
     field(:advanced, :boolean)
   end
+
+  input_object :update_class_params do
+    field(:active, :boolean)
+    field(:name, :string)
+    field(:slug, :string)
+    field(:badge, :string)
+    field(:advanced, :boolean)
+  end
 end

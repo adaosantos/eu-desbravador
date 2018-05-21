@@ -67,5 +67,13 @@ defmodule EuDesbravador.Schema do
 
       resolve(&Resolvers.Class.insert/2)
     end
+
+    @desc "Update Class"
+    field :update_class, :class do
+      arg(:id, non_null(:id))
+      arg(:class, :update_class_params)
+
+      resolve(&Resolvers.Class.update/2)
+    end
   end
 end
